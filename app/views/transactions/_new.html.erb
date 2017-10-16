@@ -1,0 +1,15 @@
+<%= form_for crypto.transactions.new do |f| %>
+
+  <%= f.hidden_field :crypto_id, value: crypto.id %>
+
+  <%= f.select :todo, options_for_select(['buy','sell'],'buy') %>
+
+  <input id="transaction-date" class="flatpickr flatpickr-input active date-picker graph-form" name="transaction[date]" type="text" placeholder="<%= Date.today %>" data-id="datetime" readonly="readonly">
+  
+  <%= f.text_field :amount %>
+
+  <%= f.text_field :price %>
+
+  <%= f.submit("Update") %>
+
+<% end %>

@@ -1,0 +1,52 @@
+<% if signed_in? %>
+
+  <p>Signed In</p>
+  <p><%= @user.email %></p>
+  <%= link_to "Log Out", session_path, method: :delete %>
+
+  <%= form_tag(root_path, method: :get) do %>
+    <%= render partial: '/transactions/filter' %>
+  <% end -%>
+
+  <% if @cryptos %>
+    <% for crypto in @cryptos %>
+      <p><%= crypto.name %></p>
+      <% if current_user.cryptocurrency(crypto.id).where(date: @date) %>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Buy/Sell</th>
+              <th>Amount</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="table-<%=crypto.id%>">
+            <% current_user.cryptocurrency(crypto.id).where(date: @date).each do |transaction| %>
+              <%= render partial: '/transactions/show', locals: {transaction: transaction} %>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      <%= render partial: '/transactions/new', locals: {crypto: crypto} %>
+    <% end %>
+  <% end %>
+
+  <%= form_tag('/cwallets') do %>
+    <%= render partial: '/cwallets/form' %>    
+  <% end %>
+
+<% else %>
+
+  <p>Sign Up</p>
+  <%= form_for @user do |form| %>
+    <%= render partial: '/users/sign_up_form', locals: {form: form} %>
+  <% end %>
+
+  <p>Sign In</p>
+  <%= form_for(@user, url: session_path) do |form| %>
+    <%= render partial: '/users/sign_in_form', locals: {form: form} %>
+  <% end %>
+    
+<% end %>
