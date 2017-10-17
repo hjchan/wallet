@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :show]
   resources :cwallets, only: [:create] 
   resources :transactions, only: [:create]
+  resources :sessions, only: [:create, :destroy]
+  get '/buy' => 'transactions#buy', as: 'buy'
+  get '/sell' => 'transactions#sell', as: 'sell'
   post '/filter' => 'transactions#filter'
-  post '/session' => 'users#login'
-  delete '/session' => 'users#logout'
+  post '/login' => 'users#login', as: 'login'
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
+  delete 'signout', to: 'sessions#destroy', as: 'signout'
 end

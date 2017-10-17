@@ -32,6 +32,10 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'omniauth-google-oauth2'
+
+gem 'figaro'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-flatpickr-calendar', '~>3.0.7'
 end

@@ -2,7 +2,7 @@
 
   <p>Signed In</p>
   <p><%= @user.email %></p>
-  <%= link_to "Log Out", session_path, method: :delete %>
+  <%= link_to "Log Out", signout_path, method: :delete %>
 
   <%= form_tag(root_path, method: :get) do %>
     <%= render partial: '/transactions/filter' %>
@@ -32,9 +32,10 @@
       <%= render partial: '/transactions/new', locals: {crypto: crypto} %>
     <% end %>
   <% end %>
-
-  <%= form_tag('/cwallets') do %>
-    <%= render partial: '/cwallets/form' %>    
+  <% if !(@choice.empty?) %>
+    <%= form_tag('/cwallets') do %>
+      <%= render partial: '/cwallets/form' %>    
+    <% end %>
   <% end %>
 
 <% else %>
@@ -45,8 +46,10 @@
   <% end %>
 
   <p>Sign In</p>
-  <%= form_for(@user, url: session_path) do |form| %>
+  <%= form_for(@user, url: login_path) do |form| %>
     <%= render partial: '/users/sign_in_form', locals: {form: form} %>
   <% end %>
+
+  <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
     
 <% end %>

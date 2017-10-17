@@ -13,4 +13,16 @@ class User < ApplicationRecord
     transactions.where(crypto_id: crypto_id)
   end
 
+   def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+      user.provider = auth.provider
+      user.password = SecureRandom.hex(10)
+      user.email = auth.info.email
+      user.uid = auth.uid
+      user.name = auth.info.name
+      user.oauth_token = auth.credentials.token
+      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+    end
+  end
+
 end

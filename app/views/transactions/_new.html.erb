@@ -1,15 +1,6 @@
-<%= form_for crypto.transactions.new do |f| %>
+<%= link_to "Buy", buy_path(crypto_id: crypto.id), remote: true %>
+<%= link_to "Sell", sell_path(crypto_id: crypto.id), remote: true %>
 
-  <%= f.hidden_field :crypto_id, value: crypto.id %>
+<div class="transaction-<%= crypto.id %>">
 
-  <%= f.select :todo, options_for_select(['buy','sell'],'buy') %>
-
-  <input id="transaction-date" class="flatpickr flatpickr-input active date-picker graph-form" name="transaction[date]" type="text" placeholder="<%= Date.today %>" data-id="datetime" readonly="readonly">
-  
-  <%= f.text_field :amount %>
-
-  <%= f.text_field :price %>
-
-  <%= f.submit("Update") %>
-
-<% end %>
+</div>

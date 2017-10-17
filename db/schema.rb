@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016043522) do
+ActiveRecord::Schema.define(version: 20171017081245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20171016043522) do
     t.bigint "crypto_id"
     t.bigint "user_id"
     t.integer "todo"
-    t.integer "amount"
-    t.integer "price"
-    t.integer "total"
+    t.decimal "amount"
+    t.decimal "price"
+    t.decimal "total"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -51,6 +51,11 @@ ActiveRecord::Schema.define(version: 20171016043522) do
     t.integer "currency", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.string "oauth_token"
+    t.datetime "oauth_expires_at"
   end
 
 end

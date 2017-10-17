@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       session[:id] = user.id
       redirect_to root_path
     else
-      flash[:alert] = user.errors.messages
+      flash[:danger] = user.errors.messages
       redirect_to root_path
     end
   end
@@ -13,13 +13,13 @@ class UsersController < ApplicationController
   def login
     user = User.find_by_email(params[:user][:email])
     if user.nil?
-      flash[:alert] = "Wrong Email"
+      flash[:danger] = "Wrong Email"
     else
       if user.authenticate(params[:user][:password])
-        flash[:messages] = "Login Successfully"
+        flash[:success] = "Login Successfully"
         session[:id] = user.id
       else
-        flash[:alert] = "Wrong Password"
+        flash[:danger] = "Wrong Password"
       end
     end
     redirect_to root_path
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def logout
     session[:id] = nil
-    flash[:messages] = "Logout Successfully"
+    flash[:success] = "Logout Successfully"
     redirect_to root_path
   end
 
@@ -35,6 +35,7 @@ class UsersController < ApplicationController
     if signed_in?
       @user = current_user
       @cryptos = @user.cryptos
+      @choice = Crypto.where.not(id: current_user.cryptos.pluck(:id)).pluck(:name)
       if params[:date].nil?
         @date = Date.today-30..Date.today
       else

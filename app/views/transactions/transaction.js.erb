@@ -1,0 +1,5 @@
+console.log("success");
+$('.transaction-<%= @crypto.id %>').html("<%= j(render 'transactions/form', crypto: @crypto, todo: @todo) %>");
+flatpickr('#transaction-date',{
+	maxDate: "today"
+});

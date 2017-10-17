@@ -2,7 +2,7 @@ class CwalletsController < ApplicationController
 
   def create
     if signed_in?
-      cwallet = current_user.cwallets.new(crypto_id: params[:crypto_id])
+      cwallet = current_user.cwallets.new(crypto_id: Crypto.find_by_name(params[:crypto_name]).id)
       if !(cwallet.save)
         flash[:alert] = cwallet.errors.messages
       end
