@@ -34,9 +34,15 @@ class UsersController < ApplicationController
   def show
     if signed_in?
       @user = current_user
-      @cryptos = @user.cryptos
+      if params[:crypto_name].nil? || params[:crypto_name] == "All"
+        @cryptos = @user.cryptos
+      else
+        @cryptos = Crypto.where(name: params[:crypto_name])
+      end
+      @select = current_user.cryptos.pluck(:name)
+      @select.unshift("All")
       @choice = Crypto.where.not(id: current_user.cryptos.pluck(:id)).pluck(:name)
-      if params[:date].nil?
+      if params[:date].nil? || params[:date].empty?
         @date = Date.today-30..Date.today
       else
         date = params[:date].partition(' to ')

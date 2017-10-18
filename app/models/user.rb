@@ -13,6 +13,22 @@ class User < ApplicationRecord
     transactions.where(crypto_id: crypto_id)
   end
 
+  def total_amount(crypto_id, date)
+    total_buy(crypto_id, :amount, date) - total_sell(crypto_id, :amount, date)
+  end
+
+  def total_cost(crypto_id, date)
+    total_buy(crypto_id, :total, date) - total_sell(crypto_id, :total, date)
+  end
+
+  def total_buy(crypto_id, column, date)
+    cryptocurrency(crypto_id).where(date: date, todo: "buy").pluck(column).sum
+  end
+
+  def total_sell(crypto_id, column, date)
+    cryptocurrency(crypto_id).where(date: date, todo: "sell").pluck(column).sum
+  end
+
    def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
       user.provider = auth.provider

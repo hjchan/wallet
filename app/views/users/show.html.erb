@@ -1,17 +1,15 @@
 <% if signed_in? %>
 
-  <p>Signed In</p>
-  <p><%= @user.email %></p>
   <%= link_to "Log Out", signout_path, method: :delete %>
 
   <%= form_tag(root_path, method: :get) do %>
-    <%= render partial: '/transactions/filter' %>
+    <%= render partial: '/transactions/filter', locals: {choice: @select} %>
   <% end -%>
 
   <% if @cryptos %>
     <% for crypto in @cryptos %>
       <p><%= crypto.name %></p>
-      <% if current_user.cryptocurrency(crypto.id).where(date: @date) %>
+      <% if !(current_user.cryptocurrency(crypto.id).where(date: @date).empty?) %>
         <table>
           <thead>
             <tr>
@@ -23,11 +21,15 @@
             </tr>
           </thead>
           <tbody id="table-<%=crypto.id%>">
-            <% current_user.cryptocurrency(crypto.id).where(date: @date).each do |transaction| %>
+            <% current_user.cryptocurrency(crypto.id).where(date: @date).order(:date).each do |transaction| %>
               <%= render partial: '/transactions/show', locals: {transaction: transaction} %>
             <% end %>
           </tbody>
         </table>
+        <p>Total Amount: <%= total_amount = current_user.total_amount(crypto.id, @date) %></p>
+        <p>Total Cost: <%= current_user.total_cost(crypto.id, @date) %></p>
+        <p>Price Now: <%= price = JSON.parse(RestClient.get(crypto.cryptos_api))["last"] %></p>
+        <p>Total Worth Now: <%= price*total_amount %></p>
       <% end %>
       <%= render partial: '/transactions/new', locals: {crypto: crypto} %>
     <% end %>

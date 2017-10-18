@@ -36,9 +36,13 @@ gem 'omniauth-google-oauth2'
 
 gem 'figaro'
 
+gem 'rest-client'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-flatpickr-calendar', '~>3.0.7'
 end
+
+gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
