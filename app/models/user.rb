@@ -4,10 +4,11 @@ class User < ApplicationRecord
   has_many :cryptos, through: :cwallets
   has_many :transactions
   validates :email,
+      presence: true,
       uniqueness: true,
       format: {with: /@\w{2,}\./,
         message: "wrong format"}
-  enum currency: [:usd, :myr]
+  validates :password, presence: true
 
   def cryptocurrency(crypto_id)
     transactions.where(crypto_id: crypto_id)
