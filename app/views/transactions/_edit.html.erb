@@ -6,9 +6,9 @@
 
   <input id="transaction-<%=transaction.id%>-date" class="flatpickr flatpickr-input active date-picker graph-form" name="transaction[date]" type="text" data-id="datetime" readonly="readonly" value="<%=transaction.date%>">
   
-  <%= f.text_field :amount, value: transaction.amount %>
+  <%= f.text_field :amount, value: transaction.amount, placeholder: "Amount" %>
 
-  <%= f.text_field :price, value: transaction.price %>
+  <%= f.text_field :price, value: transaction.price, placeholder: "Price" %>
 
   <%= f.submit("Update") %>
 
