@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'users#show'
   resources :users, only: [:create, :show]
   resources :cwallets, only: [:create] 
-  resources :transactions, only: [:create]
+  resources :transactions, only: [:create, :edit, :update, :destroy]
   resources :sessions, only: [:create, :destroy]
   get '/buy' => 'transactions#buy', as: 'buy'
   get '/sell' => 'transactions#sell', as: 'sell'

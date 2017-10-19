@@ -2,9 +2,7 @@
 
   <%= f.hidden_field :crypto_id, value: crypto.id %>
 
-  <%= f.hidden_field :todo, value: todo %>
-
-  <%# f.select :todo, options_for_select(['buy','sell'],'buy') %>
+  <%= f.hidden_field :todo, value: todo%>
 
   <input id="transaction-date" class="flatpickr flatpickr-input active date-picker graph-form" name="transaction[date]" type="text" placeholder="<%= Date.today %>" data-id="datetime" readonly="readonly">
   

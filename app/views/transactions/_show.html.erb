@@ -1,7 +1,9 @@
-<tr>
+<tr class="transactions-<%= transaction.id %>">
   <td><%= transaction.date %></td>
   <td><%= transaction.todo %></td>
   <td><%= transaction.amount %></td>
   <td><%= transaction.price %></td>
   <td><%= transaction.total %></td>
+  <td><%= link_to "Edit", edit_transaction_path(transaction.id), remote: true %></td>
+  <td><%= link_to "Delete", transaction_path(transaction.id), method: :DELETE %></td>
 </tr>

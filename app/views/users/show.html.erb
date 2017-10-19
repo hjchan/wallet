@@ -18,6 +18,7 @@
               <th>Amount</th>
               <th>Price</th>
               <th>Total</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="table-<%=crypto.id%>">
@@ -28,7 +29,7 @@
         </table>
         <p>Total Amount: <%= total_amount = current_user.total_amount(crypto.id, @date) %></p>
         <p>Total Cost: <%= current_user.total_cost(crypto.id, @date) %></p>
-        <p>Price Now: <%= price = JSON.parse(RestClient.get(crypto.cryptos_api))["last"] %></p>
+        <p>Price For One Now: <%= price = JSON.parse(RestClient.get(crypto.cryptos_api))["last"] %></p>
         <p>Total Worth Now: <%= price*total_amount %></p>
       <% end %>
       <%= render partial: '/transactions/new', locals: {crypto: crypto} %>
