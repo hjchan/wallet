@@ -1,0 +1,7 @@
+console.log("success");
+edit = $("<tr><td class=edit-<%=@transaction.id%>></td></tr>")
+edit.insertAfter($('.transactions-<%= @transaction.id %>'))
+$('.edit-<%=@transaction.id%>').html("<%= j(render 'transactions/edit', transaction: @transaction) %>");
+flatpickr('#transaction-<%=@transaction.id%>-date',{
+	maxDate: "today"
+});
