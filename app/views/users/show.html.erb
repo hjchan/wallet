@@ -30,7 +30,7 @@
         <p>Total Amount: <%= total_amount = current_user.total_amount(crypto.id, @date) %></p>
         <p>Total Cost: <%= current_user.total_cost(crypto.id, @date) %></p>
         <p>Price For One Now: <%= price = JSON.parse(RestClient.get(crypto.cryptos_api))["last"] %></p>
-        <p>Total Worth Now: <%= price*total_amount %></p>
+        <p>Total Worth Now: <%= price.to_i*total_amount %></p>
       <% end %>
       <%= render partial: '/transactions/new', locals: {crypto: crypto} %>
     <% end %>
